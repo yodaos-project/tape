@@ -1,6 +1,8 @@
-var resolveModule = require('../_modules/resolve').sync;
+'use strict';
+
+var resolveModule = require('../lib/resolve').sync;
 var resolvePath = require('path').resolve;
-var parseOpts = require('../_modules/minimist');
+var parseOpts = require('../lib/minimist');
 var opts = parseOpts(process.argv.slice(2), {
   alias: { r: 'require' },
   string: 'require',

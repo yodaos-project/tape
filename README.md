@@ -46,7 +46,7 @@ example:
 
 ```sh
 $ iotjs bin/tape.js tests/**/*.js
-
+```
 # things that go well with tape
 
 tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
