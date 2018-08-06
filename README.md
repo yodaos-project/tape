@@ -1,13 +1,14 @@
 # tape
 
-tap-producing test harness for node and shadow-node
+The [substack/tape](https://github.com/substack/tape) integration with ShadowNode, also compatible
+with Node.js and browser.
 
+For detailed documentation, please visit [substack/tape](https://github.com/substack/tape).
 
-# example
+# Example
 
 ``` js
 var test = require('tape');
-
 test('timing test', function (t) {
     t.plan(2);
 
@@ -20,7 +21,9 @@ test('timing test', function (t) {
 });
 ```
 
-```
+The above example will outputs the following:
+
+```shell
 $ iotjs example/timing.js
 TAP version 13
 # timing test
@@ -38,23 +41,16 @@ not ok 2 should be equal
 # fail  1
 ```
 
-# usage
-
-You always need to `require('tape')` in test files. You can run the tests by
-usual shadow-node means (`require('test-file.js')` or `iotjs test-file.js`).
-example:
+# Usage
 
 ```sh
 $ iotjs bin/tape.js tests/**/*.js
 ```
-# things that go well with tape
 
-tape maintains a fairly minimal core. Additional features are usually added by using another module alongside tape.
+# Methods
 
-# methods
-
-```
-var test = require('tape')
+```js
+var test = require('tape');
 ```
 
 ## test([name], [opts], cb)
@@ -220,7 +216,7 @@ output, but you can get an object stream instead by setting `opts.objectMode` to
 
 You can create your own custom test reporter using this `createStream()` api:
 
-``` js
+```js
 var test = require('tape');
 var path = require('path');
 
@@ -247,8 +243,6 @@ process.argv.slice(2).forEach(function (file) {
 });
 ```
 
-# install
-
-# license
+# License
 
 MIT
