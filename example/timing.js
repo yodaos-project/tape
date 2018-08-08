@@ -1,9 +1,9 @@
 'use strict';
 
 var test = require('../');
-var fs = require('fs');
-var ws = fs.createWriteStream('y.log');
-test.createStream().pipe(ws);
+// var fs = require('fs');
+// var ws = fs.createWriteStream('y.log');
+// test.createStream().pipe(ws);
 
 test('timing test', function (t) {
   t.plan(2);
