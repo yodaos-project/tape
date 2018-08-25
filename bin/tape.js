@@ -3,6 +3,7 @@
 var resolveModule = require('../lib/resolve').sync;
 var resolvePath = require('path').resolve;
 var parseOpts = require('../lib/minimist');
+var glob = require('../vendor/glob/glob-sync');
 var opts = parseOpts(process.argv.slice(2), {
   alias: { r: 'require' },
   string: 'require',
@@ -24,6 +25,15 @@ opts.require.forEach(function (module) {
 });
 
 opts._.forEach(function (arg) {
-  require(resolvePath(cwd, arg));
-});
+  // If glob does not match, `files` will be an empty array.
+  // Note: `glob.sync` may throw an error and crash the node process.
+  var files = glob(arg);
 
+  if (!Array.isArray(files)) {
+      throw new TypeError('unknown error: glob.sync did not return an array or throw. Please report this.');
+  }
+
+  files.forEach(function (file) {
+      require(resolvePath(cwd, file));
+  });
+});
