@@ -5,7 +5,7 @@ var resolvePath = require('path').resolve;
 var parseOpts = require('../lib/minimist');
 var glob = require('../vendor/glob/glob-sync');
 var opts = parseOpts(process.argv.slice(2), {
-  alias: { r: 'require' },
+  alias: { r: 'require', c: 'coverage' },
   string: 'require',
   default: { r: [] }
 });
@@ -23,6 +23,18 @@ opts.require.forEach(function (module) {
     require(resolveModule(module, { basedir: cwd }));
   }
 });
+
+// opts.coverage
+// test coverage execution parameter
+if (typeof opts.coverage === 'string' && opts.coverage) {
+  process.on('exit', function onexit () {
+    if ('undefined' !== typeof __coverage__) {
+      require('fs').writeFileSync(`${opts.coverage}`, Buffer(JSON.stringify(__coverage__)))
+    } else {
+      console.error('Coverage data is not generated!')
+    }
+  })
+}
 
 opts._.forEach(function (arg) {
   // If glob does not match, `files` will be an empty array.
