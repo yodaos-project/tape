@@ -24,6 +24,12 @@ opts.require.forEach(function (module) {
   }
 });
 
+// opts.timeout
+// set the global timeout
+if (typeof opts.timeout === 'number' && opts.timeout > 0) {
+  global.__tape_timeout__ = opts.timeout;
+}
+
 // opts.coverage
 // test coverage execution parameter
 if (typeof opts.coverage === 'string' && opts.coverage) {
