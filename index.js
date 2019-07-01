@@ -6,6 +6,8 @@ var Test = require('./lib/test');
 var createResult = require('./lib/results');
 var through = require('./lib/through');
 
+var _beforeEach_handler;
+
 var canEmitExit = typeof process !== 'undefined' && process
   && typeof process.on === 'function' && process.browser !== true
   ;
@@ -45,6 +47,10 @@ exports = module.exports = (function () {
   lazyLoad.onFailure = function () {
     return getHarness().onFailure.apply(this, arguments);
   };
+
+  lazyLoad.beforeEach = function (cb) {
+    _beforeEach_handler = cb;
+  }
 
   lazyLoad.getHarness = getHarness
 
@@ -115,6 +121,11 @@ function createHarness(conf_) {
 
   var test = function (name, conf, cb) {
     var t = new Test(name, conf, cb);
+
+    if (_beforeEach_handler) {
+      _beforeEach_handler(t);
+    }
+
     test._tests.push(t);
 
     (function inspectCode(st) {
