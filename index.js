@@ -121,13 +121,7 @@ function createHarness(conf_) {
 
   var test = function (name, conf, cb) {
     var t = new Test(name, conf, cb);
-
-    if (_beforeEach_handlers.length) {
-      for (var i in _beforeEach_handlers) {
-        _beforeEach_handlers[i](t);
-      }
-    }
-
+    t.setBeforeEachHandler(_beforeEach_handlers);
     test._tests.push(t);
 
     (function inspectCode(st) {

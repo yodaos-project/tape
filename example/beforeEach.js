@@ -14,3 +14,8 @@ test('beforeEach test1', function (t) {
   t.plan(1);
   t.deepEqual(t.context, { bar: 'foo', foo: 'bar' });
 });
+
+test('beforeEach test2', function (t) {
+  t.plan(1);
+  t.deepEqual(t.context, { bar: 'foo', foo: 'bar' });
+});
